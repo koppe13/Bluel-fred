@@ -1,72 +1,36 @@
-let nouveauModule = document.createElement("div");
-let parentModule = document.querySelector("#portfolio h2");
-parentModule.appendChild(nouveauModule);
-
 let baliseMur = document.querySelector('.gallery')
-const nameset = new Set ()
-
-nouveauModule.innerHtml = '<div>+<ul>+<li>+<button> + "Tous" + </button>+</li>+</ul>+</div>'
+let filtreButton = document.querySelector('.filtres')
 
 document.addEventListener("DOMContentLoaded", gojson)
 async function gojson() {    
     const responses = await fetch("http://localhost:5678/api/works")
     const works = await responses.json()
     
-    //console.log(works)
     for ( i = 0; i < works.length; i++ ){
-        //console.log(works[i])
-        //filtre.add(works[i].category)
-        //console.log(filtre)
-        baliseMur.innerHTML += '<figure><img src="' + works[i].imageUrl + '" alt="' + works[i].title + '"><figcaption>' + works[i].title + '</figcaption></figure>'
-        //const filtreByName = works.map(works => works.category.name)
-        //console.log(filtreByName)
-        //const filtreById = works.map(works => works.category.id)       
-        nameset.add(works[i].category.name)
-        //nameset.add(works[i].category.id)
         
-    }}
-    //for ( i = 0; i < nameset.size; i++){
-    //    nouveauModule.innerHTML += '<ul><li><button>' + nameset[i].value + '</button></li></ul>'
-    //const objectFiltre = nameset.filter(function(filtreObject) {
-        //return nameset.value === "objects"
-     //})
-    const nameSetTableau = Array.from(nameset)
-//}
-    console.log(nameset)
-    //console.log(objectFiltre)
-       //const boutonFiltrer = document.querySelector(".btn-filtrer")
+        baliseMur.innerHTML += '<figure><img src="' + works[i].imageUrl + '"alt="' + works[i].title + '"><figcaption>' + works[i].title + '</figcaption></figure>'
+                 
+    }
+    const filtreByName = [...new Set(works.map(work => work.category.name))]
+    //recup des 3 categories de noms pour boutton
+//<div><button>tous</button> <button>tous</button> <button>tous</button> <button>tous</button></div>
+       
+    filtreButton.innerHTML = '<button name="Tous">Tous</button>'
+   for( i = 0; i < filtreByName.length; i++ ){
+    filtreButton.innerHTML += '<button name="' + filtreByName[i] + '">' + filtreByName[i] + '</button>'
+   }
+   //totalité des names pour filtre tous
+    console.log(works.map(work => work.category.name))
+    console.log(filtreByName)
+    //filtre des differents buttons
+    const name = works.map(work => work.category.name)
+        for (let i = name.length -1 ; i >= 0; i-- ){
 
-      //boutonFiltrer.addEventListener("click", function () {
-        
-        //})
-//                         
-//catergory.id
-//category.name
-
-//console.log(monSetTous)
-
-//let filtre1 = new Set([a, b, c])
-//const filtre2 = new Set(a)
-//const filtre3 = new Set(b)
-//const filtre4 = new Set(c)
-
-let filtre1 = "Tous"
-let filtre2 = nameSetTableau[0]
-let filtre3 = nameSetTableau[1]
-let filtre4 = nameSetTableau[2]
-
-//let div =`
-      // <div>
-         // <ul>
-           // <button>${filtre1}</button>
-          //  <button>${filtre2}</button>
-          //  <button>${filtre3}</button>
-           // <button>${filtre4}</button>
-        //</ul>
-    //</div>
-//`
-nouveauModule.innerHTML = div
-
-
-
-
+        if(works[i].category.name != "Objets"){
+            works.splice(i,1)
+        }}
+        console.log(works)
+        //boucle pour recuperer que les objets
+    }
+    
+    

@@ -187,8 +187,9 @@ footer nav ul {
 }
 
 button {
-	margin-top: 40px;
+	margin-top: 20px;
 	margin-bottom: 20px;
+	margin-left: 20px;
 	padding: 10px;
 	font-family: 'Syne';
 	font-weight: 400;
@@ -198,7 +199,11 @@ button {
 	border: 1px solid #1D6154;
 	min-width: 100px; 
 	border-radius: 60px ;
-	
+}
+.filtres {
+	margin-left: 280px;
+	margin-bottom: 30px;
+
 }
 button:focus {
 	color:white;
