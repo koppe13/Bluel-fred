@@ -1,36 +1,42 @@
-let baliseMur = document.querySelector('.gallery')
-let filtreButton = document.querySelector('.filtres')
+let baliseMur = document.querySelector(".gallery");
+let filtreButton = document.querySelector(".filtres");
 
-document.addEventListener("DOMContentLoaded", gojson)
-async function gojson() {    
-    const responses = await fetch("http://localhost:5678/api/works")
-    const works = await responses.json()
-    
-    for ( i = 0; i < works.length; i++ ){
-        
-        baliseMur.innerHTML += '<figure><img src="' + works[i].imageUrl + '"alt="' + works[i].title + '"><figcaption>' + works[i].title + '</figcaption></figure>'
-                 
-    }
-    const filtreByName = [...new Set(works.map(work => work.category.name))]
-    //recup des 3 categories de noms pour boutton
-//<div><button>tous</button> <button>tous</button> <button>tous</button> <button>tous</button></div>
-       
-    filtreButton.innerHTML = '<button name="Tous">Tous</button>'
-   for( i = 0; i < filtreByName.length; i++ ){
-    filtreButton.innerHTML += '<button name="' + filtreByName[i] + '">' + filtreByName[i] + '</button>'
-   }
-   //totalité des names pour filtre tous
-    console.log(works.map(work => work.category.name))
-    console.log(filtreByName)
-    //filtre des differents buttons
-    const name = works.map(work => work.category.name)
-        for (let i = name.length -1 ; i >= 0; i-- ){
+//création du json en dehors de la boucle gojson
+let donneesJson
 
-        if(works[i].category.name != "Objets"){
-            works.splice(i,1)
-        }}
-        console.log(works)
-        //boucle pour recuperer que les objets
-    }
-    
-    
+document.addEventListener("DOMContentLoaded", goJson);
+async function goJson() {
+  const responses = await fetch("http://localhost:5678/api/works");
+  const works = await responses.json();
+  donneesJson = works;
+
+  const filtreByName = [...new Set(works.map((work) => work.category.name))];
+//creation des boutons filtres avec generation du name grasse au set
+  filtreButton.innerHTML = "<button onclick=\"filtre('tous')\">Tous</button>";
+  for (i = 0; i < filtreByName.length; i++) {
+    filtreButton.innerHTML += "<button onclick=\"filtre('" + filtreByName[i] + "')\">" + filtreByName[i] + "</button>";
+  }
+//demarrage du site par filtre tous
+  filtre('tous')
+}
+
+function filtre(valButton) {
+  console.log(valButton);
+//filtre des données json par click sur button correspondant  
+if (valButton !== 'tous'){
+       const btnFiltre = donneesJson.filter((donnees)=> {return donnees.category.name == valButton})
+//données filtrées par button
+    affichageFiltre(btnFiltre)
+}else {
+//données non-filtrées par defaut
+    affichageFiltre(donneesJson)}
+  
+}
+//creation de l'affichage par boucle et valeur
+function affichageFiltre(afficher) {
+    baliseMur.innerHTML = ""
+    for (i = 0; i < afficher.length; i++) {
+        baliseMur.innerHTML += '<figure id="' + afficher[i].id + '"><img src="' + afficher[i].imageUrl + '"alt="' + afficher[i].title + '"><figcaption>' + afficher[i].title + "</figcaption></figure>";
+      } 
+
+}

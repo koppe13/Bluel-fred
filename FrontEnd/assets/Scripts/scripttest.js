@@ -1,66 +1,54 @@
-let baliseMur = document.querySelector('.gallery')
-const nameset = new Set ()
+let baliseMur = document.querySelector(".gallery");
+let filtreButton = document.querySelector(".filtres");
 
+//const button = document.querySelector("button")
+let donneesJson
 
+document.addEventListener("DOMContentLoaded", gojson);
+async function gojson() {
+  const responses = await fetch("http://localhost:5678/api/works");
+  const works = await responses.json();
+  donneesJson = works;
 
-//nouveauModule.innerHtml = '<ul><li><button>' + "Tous" + '</button></li></ul>' + '<ul><li><button>' + filtre1 + '</button></li></ul>'
-//console.log(nouveauModule.innerHTML)
+  const filtreByName = [...new Set(works.map((work) => work.category.name))];
 
-document.addEventListener("DOMContentLoaded", gojson)
-async function gojson() {    
-    const responses = await fetch("http://localhost:5678/api/works")
-    const works = await responses.json()
-   
-    for ( i = 0; i < works.lenght; i++ ){
-        
-        baliseMur.innerHTML += '<figure><img src="' + works[i].imageUrl + '" alt="' + works[i].title + '"><figcaption>' + works[i].title + '</figcaption></figure>'
-        nameset.add(works[i].category)
-               
-        
-    }
-    const filtreByName = [...new Set(works.map(work => work.category.name))]
-    console.log(filtreByName)
+  filtreButton.innerHTML = "<button onclick=\"filtre('tous')\">Tous</button>";
+  for (i = 0; i < filtreByName.length; i++) {
+    filtreButton.innerHTML += "<button onclick=\"filtre('" + filtreByName[i] + "')\">" + filtreByName[i] + "</button>";
+  }
+  for (i = 0; i < works.length; i++) {
+    baliseMur.innerHTML += '<figure id="' + works[i].id + '" style="display:none;" ><img src="' + works[i].imageUrl + '"alt="' + works[i].title + '"><figcaption>' + works[i].title + "</figcaption></figure>";
+  }
+  
+  //filtre('tous')
 }
-    //for ( i = 0; i < nameset.size; i++){
-    //    nouveauModule.innerHTML += '<ul><li><button>' + nameset[i].value + '</button></li></ul>'
-    //const objectFiltre = nameset.filter(function(filtreObject) {
-        //return nameset.value === "objects"
-     //})
-     
+
+function filtre(valButton) {
+  console.log(valButton);
+let donneesFiltrees = donneesJson
+  const name = donneesJson.map((work) => work.category.name);
+if (valButton !== 'tous'){
+        for (let i = name.length - 1; i >= 0; i--) {
+             if (donneesFiltrees[i].category.name != valButton) {
+                donneesFiltrees.splice(i, 1);
+    }
     
-//}
+  }
+for ( i = 0; i<donneesFiltrees.length; i++){
+    document.getElementById(donneesFiltrees[i].id).style.display="block"
+}
     
-    //console.log(objectFiltre)
-       //const boutonFiltrer = document.querySelector(".btn-filtrer")
+}else {
 
-      //boutonFiltrer.addEventListener("click", function () {
-        
-        //})
-//                         
-//catergory.id
-//category.name
+    for ( i = 0; i<donneesFiltrees.length; i++){
+        document.getElementById(donneesFiltrees[i].id).style.display="block"
+    }
+    
+}
+  
+}
+function affichageFiltre(afficher) {
+    baliseMur.innerHTML = ""
+    
 
-//console.log(monSetTous)
-
-//let filtre1 = new Set([a, b, c])
-//const filtre2 = new Set(a)
-//const filtre3 = new Set(b)
-//const filtre4 = new Set(c)
-
-
-
-//let div =`
-      // <div>
-         // <ul>
-           //  <li><button>${filtre1}</button></li>
-          //  <button>${filtre2}</button>
-          //  <button>${filtre3}</button>
-           // <button>${filtre4}</button>
-        //</ul>
-    //</div>
-//`
-//nouveauModule.innerHTML = div
-
-
-
-
+}
