@@ -52,3 +52,8 @@ function affichageFiltre(afficher) {
     
 
 }
+const button = document.getElementById("button");
+
+button.addEventListener("click", (event) => {
+  button.innerHTML = `Nombre de clics : ${event.detail}`;
+});

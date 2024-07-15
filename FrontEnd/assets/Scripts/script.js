@@ -19,7 +19,7 @@ async function goJson() {
 //demarrage du site par filtre tous
   filtre('tous')
 }
-
+//fonction de filtrage par la valeur name du button selectionné
 function filtre(valButton) {
   console.log(valButton);
 //filtre des données json par click sur button correspondant  

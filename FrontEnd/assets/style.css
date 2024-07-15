@@ -219,4 +219,44 @@ h2 {
 #portfolio {
 	margin-top: 120px;
 }
+li a {
+	text-decoration:none;
+	color: black;	
+}
+li a:hover {
+	text-decoration:none;
+	color: #B1663C;
 
+}
+#connexion{
+	display: flex;
+	flex-direction: column;
+	width: 33%;
+	padding-left: 33%;
+	
+}
+#connexion h2{
+	align-self: center;
+}
+#connexion label {
+	text-align: left;
+	margin-top:30px;
+	margin: 2em 0 1em 0;
+}
+#connexion input {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	min-width: 200px;
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#connexion a {
+	padding-left: 130px;
+}
+#login {
+	align-self: center;
+	width: 180px;
+}
