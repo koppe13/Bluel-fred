@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
@@ -11,14 +14,20 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="./assets/Scripts/script.js" defer></script>
 </head>
+<div id="modEdition" class="modEdit" style="display:none">
+	<a><i class="fa-regular fa-pen-to-square"></i>mode édition</a>
+</div>
+	
 <body>
+	
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li><a href="./loginpage.html">login</a></li>
+			<li><a id="con" style="display:inline" class="log1" href="./loginpage.html">login</a></li>
+			<li><a id="decon" style="display:none" class="log2" href="">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -36,8 +45,10 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
-			<div class="filtres"></div>
+		<h2>Mes Projets<a id="modal" style="display:none" class="mod" href="modale"><i class="fa-regular fa-pen-to-square"></i>modifier</a></h2>
+			<div class="centrage">
+				<div id="filtres" style="display:inline" class="filtres"></div>
+			</div>
 			<div class="gallery"></div>
 	</section>
 	<section id="contact">

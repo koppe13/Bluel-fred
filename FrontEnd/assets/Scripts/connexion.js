@@ -1,47 +1,76 @@
-let clientMail = document.getElementById("conEmail")
-let pass = document.getElementById("password")
 const connex = document.getElementById("login")
+const decon = document.getElementById("logout")
+const section = document.getElementById("connexion")
 
 //recupére les valeurs inscritent par utilisateurs (mail et mdp)
-connex.addEventListener("click", (event) => {
-    let mail = clientMail.value
-    console.log(mail)
-    let mdp = pass.value
-    console.log(mdp)
-    console.log(connexion)
-    const donnees = [mail, mdp]
-    //const infoUser = [{"email": mail,
-      //  "password": mdp}]
-      //  console.log(infoUser)
-   //envoi du mail et du password sur l'api
-   // Appel de la fonction fetch avec toutes les informations nécessaires
-   async function postJSON(donnees) {
-    
-        try {
-      const reponse = await fetch("http://localhost:5678/api/users/login", {
-        method: "POST", 
-        headers: {
-            //'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(donnees),
-          //body: {"email": mail,
-          //     "password": mdp},
-               
-      })
-      console.log(donnees)  
-      const resultat = await reponse.json()
-      console.log("Réussite :", resultat)
-    } catch (erreur) {
-      console.error("Erreur :", erreur)
-    }
-  }
-postJSON(donnees)
 
+section.addEventListener("change", () => {
+  
+  // On fait la vérification.
+  const utilMail = document.getElementById("email").value;
+  const utilPass = document.getElementById("password").value
+  console.log(utilMail)
+  console.log(utilPass)
+  if ( utilMail && utilPass ) {
+    connex.disabled = false
+  }else {
+    connex.disabled = true
+  }
 })
 
- //localStorage.setItem('mail', 'mail.value')
-//console.log(localStorage)
+    connex.addEventListener("click", (event) => {
+    event.preventDefault()
+  
+  async function postJSON() {
 
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+  //envoi du mail et du password sur l'api
+  // Appel de la fonction fetch avec toutes les informations nécessaires
+      try {
+        const reponse = await fetch("http://localhost:5678/api/users/login", {
+          method: "POST", 
+          headers: {
+             'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password }),
+          
+      })
+       
+      const resultat = await reponse.json()
+      
+      if (resultat.token){
+            window.localStorage.setItem("token", resultat.token)
+            return window.location = "index.html"
+            
+
+      }else{
+        throw new Error("le mail ou le mot de passe est érroné")
+      }
+     
+    } catch (erreur) {
+      afficherMessageErreur()
+      }
+      
+    }
+    function afficherMessageErreur () {
+    let erreurTexte = document.getElementById("connexion")
+        let spanError = document.createElement("span")
+        console.log(document.querySelector("#connexion > span"))
+    if (!document.querySelector("#connexion > span")){   
+        spanError.innerText = "le mail ou le mot de passe est érroné(s)"
+        connexion.append(spanError)
+    }
+        document.getElementById("login").disabled = true
+  }
+  
+postJSON ()
+
+})
+//let regex = new RegExp("^[a-z]+$");
+  //let resultat = regex.test(chaine);
+  //console.log(resultat); // Affiche true.
+  //[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+ mail
+  //[a-z0-9._-]+ mdp
 
 
