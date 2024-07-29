@@ -45,13 +45,7 @@ function affichageFiltre(afficher) {
       } 
 }
 
-function affichageMiniature(appear) {
 
-    //baliseMiniat.innerHTML = ""
-    for (i = 0; i < appear.length; i++) {
-        baliseMiniat.innerHTML += '<img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"></img>';
-      } 
-}
 
   function connected(){
     let userConnected = localStorage.getItem("token")
@@ -61,16 +55,10 @@ function affichageMiniature(appear) {
     document.getElementById("decon").style.display="inline"
     document.getElementById("modale").style.display="inline"
     document.getElementById("filtres").style.display="none"
-    //document.getElementById("modEdition").style.display="inline-block"
+    document.getElementById("modEdition").style.display="inline-block"
     }
   } 
-  modale.addEventListener("click", modified)
-  function modified(){
-    document.getElementById("modal1").style.display="inline"
-    document.getElementById("filtres").style.display="none"
-    document.getElementById("galerie").innerHTML = affichageMiniature()
-    //affichageMiniature()
-    }
+  
    
     //faire apparaitre le modifier pour la modale
   
@@ -82,9 +70,38 @@ function affichageMiniature(appear) {
       document.getElementById("modEdition").style.display="none"
       window.localStorage.clear()
   }}
-//const OpenModal = function GoModal (event) {
- //   event.preventDefault()
+
+//function affichageMiniature(appear) {
+
+    //baliseMiniat.innerHTML = ""
+   // for (i = 0; i < appear.length; i++) {
+   //     baliseMiniat.innerHTML += '<img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"></img>';
+   //  } 
+//}
+modale.addEventListener("click", modified)
+  function modified(){
+    document.getElementById("modal1").style.display="inline"
+    document.getElementById("filtres").style.display="none"
+    document.getElementById("galerie").innerHTML = affichageMiniature()
+    affichageMiniature()
+  }
+
+
+
+
+
+
+  //const goModal = function goModal (e) {
+//    e.preventDefault()
+//    const target = document.querySelector(e.target.getAttribute('href'))
+//    target.style.display = null
+//    target.removeAttribute('aria-hidden')
+//    target.setAttribute('aria-modal', true)
+
+//  document.querySelectorAll('.mod').forEach(a => {
+//    a.addEventListener('click', goModal) 
+     
+//  })}
+
   //  const target = document.querySelector(event.target.getattribute('href'))
  //   target.style.display = null
-//}
-//}
