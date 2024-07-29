@@ -14,12 +14,11 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="./assets/Scripts/script.js" defer></script>
 </head>
-<div id="modEdition" class="modEdit" style="display:none">
-	<a><i class="fa-regular fa-pen-to-square"></i>mode édition</a>
-</div>
 	
 <body>
-	
+	<div id="modEdition" class="modEdit" style="display:none">
+		<a><i class="fa-regular fa-pen-to-square"></i>mode édition</a>
+	</div>	
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -45,7 +44,15 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets<a id="modal" style="display:none" class="mod" href="modale"><i class="fa-regular fa-pen-to-square"></i>modifier</a></h2>
+		<h2>Mes Projets<a id="modale" style="display:none" class="mod" href="#modal1" role="button"><i class="fa-regular fa-pen-to-square"></i>modifier</a></h2>
+		<aside id="modal1" class="modal" aria-hidden="true" aria-modal="true" role="dialog" aria-labelledby="titleModale" style="display:none">
+			<div class="modal-wrapper">
+				<button class="closeModale"><i class="fa-solid fa-xmark"></i></button>
+				<h3 id="titleModale" class="title">Galerie Photo</h3>
+				<div id="galerie" class="lambda"></div>
+				<button class="ajoutPhoto">Ajouter une photo</button>
+			</div>
+		</aside>
 			<div class="centrage">
 				<div id="filtres" style="display:inline" class="filtres"></div>
 			</div>

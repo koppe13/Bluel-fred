@@ -1,4 +1,5 @@
 let baliseMur = document.querySelector(".gallery");
+let baliseMiniat = document.querySelector(".galerie")
 let filtreButton = document.querySelector(".filtres");
 
 //création du json en dehors de la boucle gojson
@@ -11,7 +12,7 @@ async function goJson() {
   donneesJson = works;
 
   const filtreByName = [...new Set(works.map((work) => work.category.name))];
-//creation des boutons filtres avec generation du name grasse au set
+//creation des boutons filtres avec generation du name grace au set
   filtreButton.innerHTML = "<button onclick=\"filtre('tous')\">Tous</button>";
   for (i = 0; i < filtreByName.length; i++) {
     filtreButton.innerHTML += "<button onclick=\"filtre('" + filtreByName[i] + "')\">" + filtreByName[i] + "</button>";
@@ -40,10 +41,17 @@ if (valButton !== 'tous'){
 function affichageFiltre(afficher) {
     baliseMur.innerHTML = ""
     for (i = 0; i < afficher.length; i++) {
-        baliseMur.innerHTML += '<figure id="' + afficher[i].id + '"><img src="' + afficher[i].imageUrl + '"alt="' + afficher[i].title + '"><figcaption>' + afficher[i].title + "</figcaption></figure>";
+        baliseMur.innerHTML += '<figure id="' + afficher[i].id + '"><img src="' + afficher[i].imageUrl + '"alt="' + afficher[i].title + '"></img><figcaption>' + afficher[i].title + "</figcaption></figure>";
       } 
 }
 
+function affichageMiniature(appear) {
+
+    //baliseMiniat.innerHTML = ""
+    for (i = 0; i < appear.length; i++) {
+        baliseMiniat.innerHTML += '<img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"></img>';
+      } 
+}
 
   function connected(){
     let userConnected = localStorage.getItem("token")
@@ -51,11 +59,19 @@ function affichageFiltre(afficher) {
     if ( userConnected !== null ){
     document.getElementById("con").style.display="none"
     document.getElementById("decon").style.display="inline"
-    document.getElementById("modal").style.display="inline"
+    document.getElementById("modale").style.display="inline"
     document.getElementById("filtres").style.display="none"
-    document.getElementById("modEdition").style.display="inline-block"
+    //document.getElementById("modEdition").style.display="inline-block"
     }
-  }  
+  } 
+  modale.addEventListener("click", modified)
+  function modified(){
+    document.getElementById("modal1").style.display="inline"
+    document.getElementById("filtres").style.display="none"
+    document.getElementById("galerie").innerHTML = affichageMiniature()
+    //affichageMiniature()
+    }
+   
     //faire apparaitre le modifier pour la modale
   
   decon.addEventListener("click", deconnexion)
@@ -66,8 +82,9 @@ function affichageFiltre(afficher) {
       document.getElementById("modEdition").style.display="none"
       window.localStorage.clear()
   }}
-//  else{
-//    document.getElementById("con").style.display="inline"
-//    document.getElementById("decon").style.display="none"
-//  }
+//const OpenModal = function GoModal (event) {
+ //   event.preventDefault()
+  //  const target = document.querySelector(event.target.getattribute('href'))
+ //   target.style.display = null
+//}
 //}
