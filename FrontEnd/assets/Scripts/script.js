@@ -1,9 +1,10 @@
 let baliseMur = document.querySelector(".gallery");
-let baliseMiniat = document.querySelector(".galerie")
+let baliseMiniat = document.getElementById("galerie")
 let filtreButton = document.querySelector(".filtres");
 
 //création du json en dehors de la boucle gojson
 let donneesJson
+
 
 document.addEventListener("DOMContentLoaded", goJson)
 async function goJson() {
@@ -45,6 +46,13 @@ function affichageFiltre(afficher) {
       } 
 }
 
+function affichageMiniature() {
+    let appear = donneesJson
+    baliseMiniat.innerHTML = ""
+    for (i = 0; i < appear.length; i++) {
+    baliseMiniat.innerHTML += '<div><img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"><a href=""><i class="fa-solid fa-trash-can"></i></a></img></div>';
+      }
+  }
 
 
   function connected(){
@@ -58,8 +66,7 @@ function affichageFiltre(afficher) {
     document.getElementById("modEdition").style.display="inline-block"
     }
   } 
-  
-   
+     
     //faire apparaitre le modifier pour la modale
   
   decon.addEventListener("click", deconnexion)
@@ -71,23 +78,27 @@ function affichageFiltre(afficher) {
       window.localStorage.clear()
   }}
 
-//function affichageMiniature(appear) {
-
-    //baliseMiniat.innerHTML = ""
-   // for (i = 0; i < appear.length; i++) {
-   //     baliseMiniat.innerHTML += '<img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"></img>';
-   //  } 
-//}
 modale.addEventListener("click", modified)
   function modified(){
-    document.getElementById("modal1").style.display="inline"
+    document.getElementById("modal1").style.display="flex"
     document.getElementById("filtres").style.display="none"
-    document.getElementById("galerie").innerHTML = affichageMiniature()
+    document.getElementById("fenetre").style.display="inline"
     affichageMiniature()
+    //baliseMiniat.appendChild(affichageMiniature())
+    //document.getElementById("galerie").innerHTML = affichageMiniature()
+    
   }
-
-
-
+//modal1.addEventListener("click", closeModale)
+function closeModale(){
+   document.getElementById("fenetre").style.display="none"
+   document.getElementById("modal1").style.display="none"
+   //document.getElementById("filtres").style.display="inline"
+   
+  }
+//graphic art pour eviter de fermer la fenetre modale en cliquant dessus
+//const stoppropagation = function (e) {
+//  e.stoppropagation()
+//}
 
 
 
