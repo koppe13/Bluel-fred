@@ -45,12 +45,18 @@
 	</section>
 	<section id="portfolio">
 		<h2>Mes Projets<a id="modale" style="display:none" class="mod" href="#modal1" role="button"><i class="fa-regular fa-pen-to-square"></i>modifier</a></h2>
-		<aside onClick="closeModale()" Id="modal1" class="modal" role="dialog" aria-labelledby="titleModale" style="display:none">
+		<aside Id="modal1" class="modal" role="dialog" aria-labelledby="titleModale" style="display:none;">
 			<div id="fenetre" class="modal-wrapper">
 				<button onClick="closeModale()" class="closeModale"><i class="fa-solid fa-xmark"></i></button>
 				<h3 id="titleModale" class="title">Galerie Photo</h3>
-				<div id="galerie" class="lambda"></div>
-				<button class="ajoutPhoto">Ajouter une photo</button>
+				<div id="galerie" class="alpha"></div>
+				<div class="beta"></div>
+				<button id="nextModale" class="ajoutPhoto">Ajouter une photo</button>
+			</div>
+			<div id="ajoutFenetre" class="modal-Wrapper2" style="display:none">
+				<button onClick="returnModale()" class="returnModale"><<i class="fa-solid fa-arrow-left"></i></button>
+				<button onClick="closeModale()" class="closeModale"><i class="fa-solid fa-xmark"></i></button>
+				<h3 id="titleModale2" class="title">Ajout photo</h3>
 			</div>
 		</aside>
 			<div class="centrage">

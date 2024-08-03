@@ -14,9 +14,9 @@ async function goJson() {
 
   const filtreByName = [...new Set(works.map((work) => work.category.name))];
 //creation des boutons filtres avec generation du name grace au set
-  filtreButton.innerHTML = "<button onclick=\"filtre('tous')\">Tous</button>";
+  filtreButton.innerHTML = "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
   for (i = 0; i < filtreByName.length; i++) {
-    filtreButton.innerHTML += "<button onclick=\"filtre('" + filtreByName[i] + "')\">" + filtreByName[i] + "</button>";
+    filtreButton.innerHTML += "<button class='filt' onclick=\"filtre('" + filtreByName[i] + "')\">" + filtreByName[i] + "</button>";
   }
 //demarrage du site par filtre tous
   filtre('tous')
@@ -63,7 +63,7 @@ function affichageMiniature() {
     document.getElementById("decon").style.display="inline"
     document.getElementById("modale").style.display="inline"
     document.getElementById("filtres").style.display="none"
-    document.getElementById("modEdition").style.display="inline-block"
+    document.getElementById("modEdition").style.display="block"
     }
   } 
      
@@ -85,16 +85,30 @@ modale.addEventListener("click", modified)
     document.getElementById("fenetre").style.display="inline"
     affichageMiniature()
     //baliseMiniat.appendChild(affichageMiniature())
-    //document.getElementById("galerie").innerHTML = affichageMiniature()
-    
+    //document.getElementById("galerie").innerHTML = affichageMiniature() 
   }
-//modal1.addEventListener("click", closeModale)
+  //aside.addEventListener('click', closeModale())
+  window.addEventListener('click', function(event) {
+    modal = document.getElementById('modal1');
+    if (event.target == modal) {
+        closeModale()
+    }})
 function closeModale(){
    document.getElementById("fenetre").style.display="none"
    document.getElementById("modal1").style.display="none"
-   //document.getElementById("filtres").style.display="inline"
-   
+   document.getElementById('ajoutFenetre').style.display="none"
   }
+
+  //nextModale.addEventListener("click", ajout())
+  //function ajout(){
+  //  document.getElementById("modal1").style.display="flex"
+  //  document.getElementById("filtres").style.display="none"
+  // document.getElementById("fenetre").style.display="none"
+  //  document.getElementById("ajoutFenetre").style.display="inline"
+  //}
+
+
+  
 //graphic art pour eviter de fermer la fenetre modale en cliquant dessus
 //const stoppropagation = function (e) {
 //  e.stoppropagation()
