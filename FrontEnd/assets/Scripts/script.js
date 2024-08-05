@@ -50,7 +50,7 @@ function affichageMiniature() {
     let appear = donneesJson
     baliseMiniat.innerHTML = ""
     for (i = 0; i < appear.length; i++) {
-    baliseMiniat.innerHTML += '<div><img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"><a href=""><i class="fa-solid fa-trash-can"></i></a></img></div>';
+    baliseMiniat.innerHTML += '<div><img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"><a id="trash" href=""><i class="fa-solid fa-trash-can"></i></a></img></div>';
       }
   }
 
@@ -98,7 +98,9 @@ function closeModale(){
    document.getElementById("modal1").style.display="none"
    document.getElementById('ajoutFenetre').style.display="none"
   }
-
+//trash.addEventListener('click', function()) {
+//  function trash ()
+//}
   //nextModale.addEventListener("click", ajout())
   //function ajout(){
   //  document.getElementById("modal1").style.display="flex"
