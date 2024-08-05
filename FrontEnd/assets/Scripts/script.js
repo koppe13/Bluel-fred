@@ -50,9 +50,21 @@ function affichageMiniature() {
     let appear = donneesJson
     baliseMiniat.innerHTML = ""
     for (i = 0; i < appear.length; i++) {
-    baliseMiniat.innerHTML += '<div><img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"><a id="trash" href=""><i class="fa-solid fa-trash-can"></i></a></img></div>';
+    baliseMiniat.innerHTML += '<div><img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"><a id="trash" href=""><i class="fa-solid fa-trash-can"></i></a></img>'+ appear[i].id +'</div>';
       }
-  }
+     // let trashIcons = document.querySelectorAll('.trash')
+    //trashIcons.forEach(icon => {
+       // icon.addEventListener('click', function(e) {
+       //    e.preventDefault() // Empêche le comportement par défaut du lien
+       //     let parentDiv = this.parentElement;
+       //     let itemId = parentDiv.id.split('-')[1] // Extraire l'ID de l'attribut id du parent div
+       //     parentDiv.remove(); // Supprimer l'élément du DOM
+            
+            // Optionnel : Supprimer l'élément de donneesJson
+        //    donneesJson = donneesJson.filter(item => item.id != itemId)
+        //})
+    //})
+}
 
 
   function connected(){
@@ -101,13 +113,14 @@ function closeModale(){
 //trash.addEventListener('click', function()) {
 //  function trash ()
 //}
-  //nextModale.addEventListener("click", ajout())
-  //function ajout(){
-  //  document.getElementById("modal1").style.display="flex"
-  //  document.getElementById("filtres").style.display="none"
-  // document.getElementById("fenetre").style.display="none"
-  //  document.getElementById("ajoutFenetre").style.display="inline"
-  //}
+
+  nextModale.addEventListener("click", ajout)
+  function ajout(){
+    document.getElementById("modal1").style.display="flex"
+    document.getElementById("filtres").style.display="none"
+   document.getElementById("fenetre").style.display="none"
+    document.getElementById("ajoutFenetre").style.display="inline"
+  }
 
 
   
