@@ -136,11 +136,12 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
 #contact {
 	width: 50%;
 	margin: auto;
+	display:flex;
+	flex-direction: column;
 }
 #contact > * {
 	text-align: center;
@@ -188,9 +189,6 @@ footer nav ul {
 }
 
 button {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	margin-left: 20px;
 	padding: 10px;
 	font-family: 'Syne';
 	font-weight: 400;
@@ -198,7 +196,6 @@ button {
 	background-color:white;
 	text-align: center;
 	border: 1px solid #1D6154;
-	min-width: 100px; 
 	border-radius: 60px ;
 }
 .centrage {
@@ -209,6 +206,7 @@ button {
 .logbutton {
 	background-color:#1D6154;
 	color: white;
+	margin-top: 50px;
 }
 .gallery {
 	max-width: 1020px;
@@ -227,7 +225,8 @@ button.filt:focus {
 }
 li a {
 	text-decoration:none;
-	color: black;	
+	color: black;
+	;	
 }
 li a:hover {
 	text-decoration:none;
@@ -260,7 +259,9 @@ li a:hover {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 #connexion a {
-	padding-left: 130px;
+	text-align: center;
+	color: black;
+	margin-top: 40px;
 }
 #login {
 	align-self: center;
@@ -283,6 +284,8 @@ li a:hover {
 	color:#1D6154;
 }
 .modEdit {
+	display: flex;
+	justify-content: center;
 	width: 1440px;
 	height: 40px;
 	background-color: black;
@@ -291,7 +294,6 @@ li a:hover {
 	
 }
 #modEdition {
-	text-align: center;
 	padding-top: 20px;
 	color:white;
 }
@@ -326,15 +328,56 @@ li a:hover {
 	background: rgba(255, 255, 255, 1);
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
 }
+.modal-wrapper2 {
+	position:relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 630px;
+	height: 678px;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+}
+
 .closeModale {
 	margin-top: 30px;
-	margin-left: 530px;
+	margin-left: 580px;
 	margin-bottom: 0;
 	padding: 0;
 	font-size: 24px;
-	background-color:white;
+	background-color:none;
 	border: none;
 	color: black;
+}
+.alignement {
+	display: flex;
+	flex-direction: row;
+	height: 60px;
+	justify-content: space-between;
+}
+.closeModale2 {
+	margin-top: 30px;
+	height: 29px;
+	padding: 0;
+	font-size: 24px;
+	background-color:none;
+	border: none;
+	color: black;
+}
+.returnModale {
+	font-size: 24px;
+	border: none;
+	margin-left: 0;
+
+}
+.creer {
+	border-color: #B3B3B3;
+	background-color: #B3B3B3;
+	color: white;
+	width: 237px;
+	margin-left: 105px;
+	margin-top: 0;
 }
 .fa-solid {
 	color:black;
@@ -342,9 +385,15 @@ li a:hover {
 	background-color: white;
 	border: none;
 }
-
+.fa-xmark {
+	margin-right: 30px;
+}
+.fa-arrow-left {
+	margin-top: 23px;
+	margin-left: 20px;
+}
 .title {
-	margin-top: 10px;
+	margin-bottom: 30px;
 	text-align: center;
 	font-size: 26px;
 }
@@ -386,20 +435,87 @@ li a:hover {
     padding-top: 6px;
 }
 .beta {
-	margin-top: 40px;
+	margin-top: 20px;
 	margin-bottom: 30px;
 	background-color:#B3B3B3 ;
 	width: 430px;
 	height: 1px;
 }
-.modal-wrapper2 {
-	position:relative;
-	display: flex !important;
+.beta2 {
+	margin-top: 50px;
+	margin-bottom: 30px;
+	background-color:#B3B3B3 ;
+	width: 430px;
+	height: 1px;
+}
+.delta{
+	display: flex;
+	flex-direction: column;
+	width: 420px;
+	margin-left: 105px;
+}
+.deltaTitre {
+	width: 420px;
+	height: 51px;
+	margin-top: 5px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+	border: none;
+}
+.deltaCategorie {
+	width: 420px;
+	height: 51px;
+	margin-top: 5px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+	border: none;
+}
+.deltaLabel {
+	margin-top: 30px;
+	text-align: start;
+}
+.addPhoto {
+	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 630px;
-	height: 678px;
-	border-radius: 10px;
-	background: rgba(255, 255, 255, 1);
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+	justify-content: center;
+	width: 420px;
+	height: 170px;
+	background-color: #E8F1F6;
+	border-radius: 3px;
+	margin-left: 105px;
+}
+input[type="file"] {
+	display: none;
+	
+ }
+ .epsilon {
+	display: inline-block;
+	width: 173px;
+	height: 36px;
+	text-align: center;
+	margin-bottom: 10px;
+	background: #b5c4cf;
+	color: #39595f;
+	cursor: pointer;
+	border: 1px;
+	
+  }
+
+.bouton {
+	width: 173px;
+	height: 36px;
+	text-align: center;
+	border: 1px;
+	border-radius: 25%;
+}
+
+aside .fa-image {
+	display: inline-block;
+	margin-bottom: 10px;
+	padding-right: 0;
+	color:#b5c4cf;
+	font-size: 76px;
+
+}
+.typo {
+	font-size: 10px;
 }
