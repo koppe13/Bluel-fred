@@ -448,7 +448,7 @@ li a:hover {
 	width: 430px;
 	height: 1px;
 }
-.delta{
+.formulaire {
 	display: flex;
 	flex-direction: column;
 	width: 420px;
@@ -484,7 +484,8 @@ li a:hover {
 	margin-left: 105px;
 }
 input[type="file"] {
-	display: none;
+	
+	
 	
  }
  .epsilon {
@@ -518,4 +519,5 @@ aside .fa-image {
 }
 .typo {
 	font-size: 10px;
+	text-align: center;
 }

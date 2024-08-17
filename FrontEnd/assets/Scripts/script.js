@@ -16,12 +16,7 @@ async function goJson() {
   filtreButton.innerHTML =
     "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
   for (i = 0; i < filtreByName.length; i++) {
-    filtreButton.innerHTML +=
-      "<button class='filt' onclick=\"filtre('" +
-      filtreByName[i] +
-      "')\">" +
-      filtreByName[i] +
-      "</button>";
+    filtreButton.innerHTML += "<button class='filt' onclick=\"filtre('" + filtreByName[i] + "')\">" + filtreByName[i] + "</button>";
   }
   //demarrage du site par filtre tous
   filtre("tous");
@@ -86,7 +81,6 @@ function affichageMiniature() {
 }
  
 
-
 function connected() {
   let userConnected = localStorage.getItem("token");
   console.log(userConnected);
@@ -146,42 +140,51 @@ function returnModale() {
   document.getElementById("fenetre").style.display = "none";
   document.getElementById("ajoutFenetre").style.display = "none";
 }
-//const valider = document.getElementById("valider")
-//   valider.addEventListener('click', function(e) {
-//    console.log(e.target)
-    
-//    fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
-//             headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} })
-        
-//      });
 
-
+let creer = document.getElementById("creer")
+creer.addEventListener("click", 
+function creationProjet() {
+let projetImage = document.querySelector("#images")
+console.log(projetImage.files[0])
 let projetTitre = document.getElementById("titre").value
 console.log(projetTitre)
-let projetCategorie = document.getElementById("categorie").value
+let projetCategorie = document.getElementById("categorie")
+let valueSelect = projetCategorie.querySelector('option:selected')
 console.log(projetCategorie)
 
-const form = document.forms.namedItem("fileinfo");
-    form.addEventListener('valider',(event) => {
-        const output = document.querySelector("#ajoutFenetre")
-        console.log(output)
-        const formData = new FormData(form);
+const formElement = document.querySelector("form");
+const formData = new FormData();
+const request = new XMLHttpRequest();
+request.open("POST", "http://localhost:5678/api/works");
+request.setRequestHeader('Authorization', `Bearer ${localStorage.getItem("token")}`)
+          formData.append("image", projetImage.files[0])
+          formData.append("title", projetTitre)
+          formData.append("category", valueSelect.getAttribute('value'))
+request.send(formData);
+});
+
+
+//const form = document.forms.namedItem("fileinfo");
+//    creer.addEventListener('click',(event) => {
+//       const output = document.querySelector("#ajoutFenetre")
+//        console.log(output)
+//        const formData = new FormData(form);
       
-          formData.append("#images", "Des données supplémentaires")
-          formData.append("#titre", projetTitre)
-          formData.append("deltaCategorie", projetCategorie)
+//          formData.append("#images", "Des données supplémentaires")
+//          formData.append("#titre", projetTitre)
+//          formData.append("deltaCategorie", projetCategorie)
       
-        const request = new XMLHttpRequest();
-          request.open("POST", "stash.php", true);
-          request.onload = (progress) => {
-            output.innerHTML =
-              request.status === 200
-                ? "Projet uploadé !"
-                : `Erreur ${request.status} lors de la tentative de l'upload du fichier.<br />`;
-          }
+//        const request = new XMLHttpRequest();
+//          request.open("POST", "stash.php", true);
+//          request.onload = (progress) => {
+//            output.innerHTML =
+//              request.status === 200
+//                ? "Projet uploadé !"
+//                : `Erreur ${request.status} lors de la tentative de l'upload du fichier.<br />`;
+//          }
       
-          request.send(formData);
-         // event.preventDefault();
-        },
-        //false,
-      );
+//          request.send(formData);
+//          event.preventDefault();
+//        },
+//       false,
+//      );
