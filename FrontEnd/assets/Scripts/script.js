@@ -152,16 +152,29 @@ let projetCategorie = document.getElementById("categorie")
 let valueSelect = projetCategorie.querySelector('option:selected')
 console.log(projetCategorie)
 
-const formElement = document.querySelector("form");
-const formData = new FormData();
-const request = new XMLHttpRequest();
-request.open("POST", "http://localhost:5678/api/works");
-request.setRequestHeader('Authorization', `Bearer ${localStorage.getItem("token")}`)
           formData.append("image", projetImage.files[0])
           formData.append("title", projetTitre)
           formData.append("category", valueSelect.getAttribute('value'))
-request.send(formData);
+
+fetch(`http://localhost:5678/api/works/${id}`, { method: 'POST',
+  headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            'Content-Type' : 'formdata'}
+           })
+
+  
+  
 });
+
+//const formElement = document.querySelector("form");
+//const formData = new FormData();
+//const request = new XMLHttpRequest();
+//request.open("POST", "http://localhost:5678/api/works");
+//request.setRequestHeader('Authorization', `Bearer ${localStorage.getItem("token")}`)
+//          formData.append("image", projetImage.files[0])
+//          formData.append("title", projetTitre)
+//          formData.append("category", valueSelect.getAttribute('value'))
+//request.send(formData);
+//});
 
 
 //const form = document.forms.namedItem("fileinfo");

@@ -484,11 +484,11 @@ li a:hover {
 	margin-left: 105px;
 }
 input[type="file"] {
-	
-	
+	visibility: hidden
 	
  }
  .epsilon {
+	
 	display: inline-block;
 	width: 173px;
 	height: 36px;
@@ -498,7 +498,7 @@ input[type="file"] {
 	color: #39595f;
 	cursor: pointer;
 	border: 1px;
-	
+	border-radius: 10%;
   }
 
 .bouton {
