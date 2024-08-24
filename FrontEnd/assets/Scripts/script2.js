@@ -1,7 +1,7 @@
 let baliseMur = document.querySelector(".gallery");
 let baliseMiniat = document.getElementById("galerie");
 let filtreButton = document.querySelector(".filtres");
-
+let baliseCategorie = document.getElementById("categorie")
 //création du json en dehors de la boucle gojson
 let donneesJson;
 
@@ -11,13 +11,17 @@ async function goJson() {
   const works = await responses.json();
   donneesJson = works;
 
-  const filtreByName = [...new Set(works.map((work) => work.category.name))];
+  const filtreBefore = [...new Set(works.map((work) => work.category.name + '-' + work.category.id))];
+  const filtreByName = filtreBefore.split('-')
+  console.log(filtreByName[1])
   //creation des boutons filtres avec generation du name grace au set
-  filtreButton.innerHTML =
-    "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
-  for (i = 0; i < filtreByName.length; i++) {
+   for (i = 0; i < filtreByName.length; i++) {
     filtreButton.innerHTML += "<button class='filt' onclick=\"filtre('" + filtreByName[i] + "')\">" + filtreByName[i] + "</button>";
+    baliseCategorie.innerHTML += "<option value='"+ filtreByName[i] +"'>" + filtreByName[i] + "</option>"
+ 
   }
+  filtreButton.innerHTML +=
+  "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
   //demarrage du site par filtre tous
   filtre("tous");
   connected();
@@ -25,7 +29,6 @@ async function goJson() {
 
 //fonction de filtrage par la valeur name du button selectionné
 function filtre(valButton) {
-  console.log(valButton);
   //filtre des données json par click sur button correspondant
   if (valButton !== "tous") {
     const btnFiltre = donneesJson.filter((donnees) => {
@@ -43,18 +46,13 @@ function filtre(valButton) {
 function affichageFiltre(afficher) {
   baliseMur.innerHTML = "";
   for (i = 0; i < afficher.length; i++) {
-    baliseMur.innerHTML +=
-      '<figure class="' +
-      afficher[i].id +
-      '" id="' +
-      afficher[i].id +
-      '"><img src="' +
-      afficher[i].imageUrl +
-      '"alt="' +
-      afficher[i].title +
-      '"></img><figcaption>' +
-      afficher[i].title +
-      "</figcaption></figure>"
+    baliseMur.innerHTML += '<figure class="' 
+    + afficher[i].id +
+     '" id="' 
+     + afficher[i].id +
+      '"><img src="' 
+      + afficher[i].imageUrl + '"alt="' + afficher[i].title + '"></img><figcaption>' +
+      afficher[i].title + "</figcaption></figure>"
   }
 }
 
@@ -69,15 +67,16 @@ function affichageMiniature() {
   let trash = document.querySelectorAll('#trash')
   trash.forEach(icon => {
    icon.addEventListener('click', function(e) {
-    console.log(e.target)
+    e.preventDefault();
     let id = e.target.parentElement.parentElement.className; // faire plus propre!!!
     console.log(id)
 
-          fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
+fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
              headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} })
         .then(() => Element.innerHTML = "projet supprimé")
       })    
   })
+
 }
  
 
@@ -107,7 +106,7 @@ modale.addEventListener("click", modified);
 function modified() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
-  document.getElementById("fenetre").style.display = "inline";
+  document.getElementById("fenetre").style.display = "flex";
   affichageMiniature();
 }
 
@@ -126,7 +125,8 @@ function closeModale() {
   document.getElementById("ajoutFenetre").style.display = "none";
 }
 
-nextModale.addEventListener("click", ajout);
+let addProject = document.getElementById('nextModale')
+addProject.addEventListener("click", ajout);
 function ajout() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
@@ -137,42 +137,43 @@ function ajout() {
 function returnModale() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
-  document.getElementById("fenetre").style.display = "none";
+  document.getElementById("fenetre").style.display = "flex";
   document.getElementById("ajoutFenetre").style.display = "none";
 }
 
 let creer = document.getElementById("creer")
-creer.addEventListener("click",
 
-  function creationProjet() {
-      event.preventDefault();
+creer.addEventListener("click", 
+async function creationProjet(e) {
+ e.preventDefault();
+let projetImage = document.querySelector("#images")
+let projetTitre = document.getElementById("titre").value
+let projetCategorie = document.getElementById("categorie").value
 
-      let projetImage = document.querySelector("#images")
-      let projetTitre = document.getElementById("titre").value
-      let projetCategorie = document.getElementById("categorie")
-      let valueSelect = projetCategorie.querySelector('option')
+let formData = new FormData()
+
+          formData.append("image", projetImage.files[0])
+          formData.append("title", projetTitre)
+          formData.append("category", projetCategorie)
+
+await fetch(`http://localhost:5678/api/works`, { 
+  method: 'POST',
+  body: formData,
+  headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+
+            },
+  
+           })
+           .then(res => res.json())
+                .then(res => {
+                    console.log(res);                   
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+document.formulaire.reset()
+});
 
 
-      const formData = new FormData();
-      formData.append("image", 'fddd');
-      //formData.append("image", projetImage.files[0])
-      //formData.append("title", projetTitre)
-      //formData.append("category", valueSelect.getAttribute('value'))
 
-      console.log(formData);
-      fetch(`http://localhost:5678/api/works`, {
-          method: "POST",
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem("token")}`
-          },
-          body: formData,
-      }).then((value) => {
-        console.log(value)
-      }).catch(error => {
-        console.log(error);
-      })
-
-
-
-  });
