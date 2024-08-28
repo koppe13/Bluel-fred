@@ -213,8 +213,6 @@ button {
 	margin: auto;
 }
 
-h2 {
-}
 .filt {
 	min-width: 100px;
 	margin-left: 10px;
@@ -333,8 +331,7 @@ li a:hover {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
 }
 .modal-wrapper2 {
-	position:relative;
-	display: flex;
+	display: grid;
 	flex-direction: column;
 	align-items: center;
 	width: 630px;
@@ -358,22 +355,24 @@ li a:hover {
 	display: flex;
 	flex-direction: row;
 	height: 60px;
-	justify-content: space-between;
+	
 }
 .closeModale2 {
 	margin-top: 30px;
+	margin-left: 520px;
 	height: 29px;
 	padding: 0;
 	font-size: 24px;
 	background-color:none;
 	border: none;
 	color: black;
+	border-radius: 0;
 }
 .returnModale {
 	font-size: 24px;
 	border: none;
 	margin-left: 0;
-
+	border-radius: 0;
 }
 .creer {
 	border-color: #B3B3B3;
@@ -382,6 +381,9 @@ li a:hover {
 	width: 237px;
 	margin-left: 105px;
 	margin-top: 0;
+}
+.creer:focus {
+	background-color: #1D6154;
 }
 .fa-solid {
 	color:black;
@@ -449,14 +451,14 @@ li a:hover {
 	margin-top: 50px;
 	margin-bottom: 30px;
 	background-color:#B3B3B3 ;
-	width: 430px;
+	width: 420px;
 	height: 1px;
 }
 .formulaire {
 	display: flex;
 	flex-direction: column;
 	width: 420px;
-	margin-left: 105px;
+	
 }
 .deltaTitre {
 	width: 420px;
@@ -485,17 +487,21 @@ li a:hover {
 	height: 170px;
 	background-color: #E8F1F6;
 	border-radius: 3px;
-	margin-left: 105px;
+	
 }
 input[type="file"] {
 	z-index: 1;
+	position: relative;
+	bottom: 30px;
+	right: 10px;
+	opacity: 0;
 }
 input::file-selector-button {
-	z-index: 1;
-	opacity: 0;
 	width: 173px;
 	height: 40px;
+	cursor: pointer;
 }
+
 .epsilon {
 	z-index: 0;
 	font-weight: bold;
@@ -506,7 +512,6 @@ input::file-selector-button {
 	text-align: center;
 	margin-bottom: 10px;
 	background: #b5c4cf;
-	cursor: pointer;
 	border-color: #39595f;
 	border: 1px;
 

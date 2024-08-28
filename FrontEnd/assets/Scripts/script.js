@@ -1,9 +1,11 @@
 let baliseMur = document.querySelector(".gallery");
 let baliseMiniat = document.getElementById("galerie");
 let filtreButton = document.querySelector(".filtres");
-
+let baliseCategorie = document.getElementById("categorie")
 //création du json en dehors de la boucle gojson
 let donneesJson;
+let creer = document.getElementById("creer")
+
 
 document.addEventListener("DOMContentLoaded", goJson);
 async function goJson() {
@@ -11,13 +13,17 @@ async function goJson() {
   const works = await responses.json();
   donneesJson = works;
 
-  const filtreByName = [...new Set(works.map((work) => work.category.name))];
+  const filtreBefore = [...new Set(works.map((work) => work.category.name + '-' + work.category.id))];
+  const filtreByName = filtreBefore.map(element => element.split('-'))
+  console.log(filtreByName)
   //creation des boutons filtres avec generation du name grace au set
-  filtreButton.innerHTML =
-    "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
-  for (i = 0; i < filtreByName.length; i++) {
-    filtreButton.innerHTML += "<button class='filt' onclick=\"filtre('" + filtreByName[i] + "')\">" + filtreByName[i] + "</button>";
+   for (i = 0; i < filtreByName.length; i++) {
+    filtreButton.innerHTML += "<button class='filt' onclick=\"filtre('" + filtreByName[i][0] + "')\">" + filtreByName[i][0] + "</button>";
+    baliseCategorie.innerHTML += "<option value='"+ filtreByName[i][1] +"'>" + filtreByName[i][0] + "</option>"
+ 
   }
+  filtreButton.innerHTML +=
+  "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
   //demarrage du site par filtre tous
   filtre("tous");
   connected();
@@ -25,7 +31,6 @@ async function goJson() {
 
 //fonction de filtrage par la valeur name du button selectionné
 function filtre(valButton) {
-  console.log(valButton);
   //filtre des données json par click sur button correspondant
   if (valButton !== "tous") {
     const btnFiltre = donneesJson.filter((donnees) => {
@@ -41,25 +46,22 @@ function filtre(valButton) {
 
 //creation de l'affichage par boucle et valeur
 function affichageFiltre(afficher) {
+  console.log(afficher)
   baliseMur.innerHTML = "";
   for (i = 0; i < afficher.length; i++) {
-    baliseMur.innerHTML +=
-      '<figure class="' +
-      afficher[i].id +
-      '" id="' +
-      afficher[i].id +
-      '"><img src="' +
-      afficher[i].imageUrl +
-      '"alt="' +
-      afficher[i].title +
-      '"></img><figcaption>' +
-      afficher[i].title +
-      "</figcaption></figure>"
+    baliseMur.innerHTML += '<figure class="' 
+    + afficher[i].id +
+     '" id="' 
+     + afficher[i].id +
+      '"><img src="' 
+      + afficher[i].imageUrl + '"alt="' + afficher[i].title + '"></img><figcaption>' +
+      afficher[i].title + "</figcaption></figure>"
   }
 }
 
 function affichageMiniature() {
   let appear = donneesJson;
+  console.log(appear)
   baliseMiniat.innerHTML = "";
   for (i = 0; i < appear.length; i++) {
     baliseMiniat.innerHTML +=
@@ -69,15 +71,22 @@ function affichageMiniature() {
   let trash = document.querySelectorAll('#trash')
   trash.forEach(icon => {
    icon.addEventListener('click', function(e) {
-    console.log(e.target)
+    e.preventDefault();
     let id = e.target.parentElement.parentElement.className; // faire plus propre!!!
     console.log(id)
+    let index = donneesJson.findIndex(e => e.id.toString() === id.toString())
 
-          fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
+fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
              headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} })
-        .then(() => Element.innerHTML = "projet supprimé")
+        .then(
+          donneesJson.splice(index, 1),
+          console.log(index),
+        affichageFiltre(donneesJson),
+        affichageMiniature()  
+        )
       })    
   })
+
 }
  
 
@@ -107,7 +116,7 @@ modale.addEventListener("click", modified);
 function modified() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
-  document.getElementById("fenetre").style.display = "inline";
+  document.getElementById("fenetre").style.display = "flex";
   affichageMiniature();
 }
 
@@ -126,53 +135,71 @@ function closeModale() {
   document.getElementById("ajoutFenetre").style.display = "none";
 }
 
-nextModale.addEventListener("click", ajout);
+let addProject = document.getElementById('nextModale')
+addProject.addEventListener("click", ajout);
 function ajout() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
   document.getElementById("fenetre").style.display = "none";
-  document.getElementById("ajoutFenetre").style.display = "inline";
+  document.getElementById("ajoutFenetre").style.display = "flex";
 }
 
 function returnModale() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
-  document.getElementById("fenetre").style.display = "none";
+  document.getElementById("fenetre").style.display = "flex";
   document.getElementById("ajoutFenetre").style.display = "none";
 }
 
-let creer = document.getElementById("creer")
-creer.addEventListener("click",
+//let preloadPicture = document.getElementById("addPhoto")
+//document.getElementById("images").addEventListener("change", 
+//function preloadImage(e) {
+//  console.log(e.target.files)
+//  preLoadPicture.style.background-image('url("' + e.target.value + '")')
 
-  function creationProjet() {
-      event.preventDefault();
+//})
 
-      let projetImage = document.querySelector("#images")
-      let projetTitre = document.getElementById("titre").value
-      let projetCategorie = document.getElementById("categorie")
-      let valueSelect = projetCategorie.querySelector('option')
+creer.addEventListener("click", 
+async function creationProjet(e) {
+ e.preventDefault();
+ let projetImage = document.querySelector("#images")
+ let projetTitre = document.getElementById("titre").value
+ console.log(projetTitre)
+ let projetCategorie = document.getElementById("categorie").value
+ console.log(projetCategorie)
+let formData = new FormData()
+console.log(formData)
+          formData.append("image", projetImage.files[0])
+          formData.append("title", projetTitre)
+          formData.append("category", projetCategorie)
+
+await fetch(`http://localhost:5678/api/works`, { 
+  method: 'POST',
+  body: formData,
+  headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+
+            },
+  
+           })
+           .then(res => res.json())
+                .then(res => {
+                    console.log(res);
+           donneesJson.push(res);
+           console.log(donneesJson)
+           affichageFiltre(donneesJson)
+           affichageMiniature()
+
+            
+                     
+            
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+document.formulaire.reset()
+
+});
 
 
-      const formData = new FormData();
-      formData.append("image", 'fddd');
-      //formData.append("image", projetImage.files[0])
-      //formData.append("title", projetTitre)
-      //formData.append("category", valueSelect.getAttribute('value'))
 
-      console.log(formData);
-      fetch(`http://localhost:5678/api/works`, {
-          method: "POST",
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem("token")}`
-          },
-          body: formData,
-      }).then((value) => {
-        console.log(value)
-      }).catch(error => {
-        console.log(error);
-      })
-
-
-
-  });
