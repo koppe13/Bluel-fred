@@ -149,6 +149,7 @@ function returnModale() {
   document.getElementById("filtres").style.display = "none";
   document.getElementById("fenetre").style.display = "flex";
   document.getElementById("ajoutFenetre").style.display = "none";
+  
 }
 
 //let preloadPicture = document.getElementById("addPhoto")
@@ -158,6 +159,16 @@ function returnModale() {
 //  preLoadPicture.style.background-image('url("' + e.target.value + '")')
 
 //})
+
+//let preloadPicture = document.getElementById("images")
+//preloadPicture.addEventListener("click", preloadImage)
+//function preloadImage(url, callback)
+//{
+//    img = new Image();
+//    img.src = url;
+//    img.onload = callback;
+//}
+
 
 creer.addEventListener("click", 
 async function creationProjet(e) {
@@ -200,6 +211,49 @@ await fetch(`http://localhost:5678/api/works`, {
 document.formulaire.reset()
 
 });
+const addPhoto = document.getElementById('addPhoto');
+const input = document.getElementById('images');
 
+input.addEventListener('change', handleFiles)
+function handleFiles(files) {
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+
+    if (!file.type.startsWith("image/")) {
+      continue;
+    }
+    addPhotoDiv.innerHTML = ''
+    const img = document.createElement("img");
+    img.classList.add("obj");
+    img.file = file;
+    addPhoto.appendChild(img); // Où  "preview" correspond à l'élément div où on affiche le contenu.
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+//const addPhotoDiv = document.getElementById('addPhoto');
+//const input = document.getElementById('images');
+
+//input.addEventListener('change', (e) => {
+//    const files = input.files;
+//    addPhotoDiv.innerHTML = ''; // Effacer le contenu précédent
+
+//    for (let i = 0; i < files.length; i++) {
+//        const file = files[i];
+//        const reader = new FileReader();
+//        reader.onload = (event) => {
+//            const thumbnail = document.createElement('img');
+//            thumbnail.src = event.target.result;
+//            thumbnail.width = 127; // Définir la largeur de la vignette
+//            thumbnail.height = 170; // Définir la hauteur de la vignette
+//            addPhotoDiv.appendChild(thumbnail);
+//        };
+//        reader.readAsDataURL(file);
+//    }
+//});
 
 
