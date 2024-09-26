@@ -6,7 +6,6 @@ let baliseCategorie = document.getElementById("categorie")
 let donneesJson;
 let creer = document.getElementById("creer")
 
-
 document.addEventListener("DOMContentLoaded", goJson);
 async function goJson() {
   const responses = await fetch("http://localhost:5678/api/works");
@@ -78,12 +77,12 @@ function affichageMiniature() {
 
 fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
              headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} })
-        .then(
-          donneesJson.splice(index, 1),
-          console.log(index),
-        affichageFiltre(donneesJson),
-        affichageMiniature()  
-        )
+        .then(() => {
+          donneesJson.splice(index, 1);
+          console.log(index);
+        affichageFiltre(donneesJson);
+        affichageMiniature();  
+   })
       })    
   })
 
@@ -142,6 +141,7 @@ function ajout() {
   document.getElementById("filtres").style.display = "none";
   document.getElementById("fenetre").style.display = "none";
   document.getElementById("ajoutFenetre").style.display = "flex";
+  
 }
 
 function returnModale() {
@@ -149,38 +149,48 @@ function returnModale() {
   document.getElementById("filtres").style.display = "none";
   document.getElementById("fenetre").style.display = "flex";
   document.getElementById("ajoutFenetre").style.display = "none";
-  
+  //addPhotoDiv.innerHTML = ''
+  //addPhotoDiv.innerHTML = '<div class="icone">' + '<i class="fa-regular fa-image"></i>' + '</div>' + '<label for="images">' + '<button class="epsilon">+ Ajouter photo' + '<input id="images" type="file" required multiple/>' + '<p class="typo">jpg,png : 4mo max</p></button>' + '</label>' + '</div>'
 }
+function insertDiv () {
+  addPhotoDiv.innerHTML = '<div class="icone">' + '<i class="fa-regular fa-image"></i>' + '</div>' + '<label for="images">' + '<button class="epsilon">+ Ajouter photo' + '<input id="images" type="file" required multiple/>' + '<p class="typo">jpg,png : 4mo max</p></button>' + '</label>' + '</div>'
 
-//let preloadPicture = document.getElementById("addPhoto")
-//document.getElementById("images").addEventListener("change", 
-//function preloadImage(e) {
-//  console.log(e.target.files)
-//  preLoadPicture.style.background-image('url("' + e.target.value + '")')
+}
+const addPhotoDiv = document.getElementById('addPhoto');
+const input = document.getElementById('images');
+input.addEventListener('change', (e) => {
+    const files = input.files;
+    addPhotoDiv.innerHTML = ""; // Effacer le contenu précédent
 
-//})
-
-//let preloadPicture = document.getElementById("images")
-//preloadPicture.addEventListener("click", preloadImage)
-//function preloadImage(url, callback)
-//{
-//    img = new Image();
-//    img.src = url;
-//    img.onload = callback;
-//}
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const thumbnail = document.createElement('img');
+            thumbnail.src = event.target.result;
+            thumbnail.width = 127; // Définir la largeur de la vignette
+            thumbnail.height = 170; // Définir la hauteur de la vignette
+            addPhotoDiv.appendChild(thumbnail);
+            console.log(thumbnail)
+            let vignette = thumbnail
+            console.log(vignette)
+        };
+        reader.readAsDataURL(file);
+    }
+})
 
 
 creer.addEventListener("click", 
 async function creationProjet(e) {
  e.preventDefault();
- let projetImage = document.querySelector("#images")
- let projetTitre = document.getElementById("titre").value
- console.log(projetTitre)
- let projetCategorie = document.getElementById("categorie").value
- console.log(projetCategorie)
-let formData = new FormData()
+  let projetImage = document.querySelector("#addPhoto")
+  console.log(projetImage)
+  let projetTitre = document.getElementById("titre").value
+  let projetCategorie = document.getElementById("categorie").value
+  let formData = new FormData()
 console.log(formData)
           formData.append("image", projetImage.files[0])
+          console.log(projetImage)
           formData.append("title", projetTitre)
           formData.append("category", projetCategorie)
 
@@ -200,10 +210,7 @@ await fetch(`http://localhost:5678/api/works`, {
            console.log(donneesJson)
            affichageFiltre(donneesJson)
            affichageMiniature()
-
-            
-                     
-            
+           returnModale()
                 })
                 .catch(err => {
                     console.log(err);
@@ -211,49 +218,16 @@ await fetch(`http://localhost:5678/api/works`, {
 document.formulaire.reset()
 
 });
-const addPhoto = document.getElementById('addPhoto');
-const input = document.getElementById('images');
 
-input.addEventListener('change', handleFiles)
-function handleFiles(files) {
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
 
-    if (!file.type.startsWith("image/")) {
-      continue;
-    }
+
+
+function Clear () {
     addPhotoDiv.innerHTML = ''
-    const img = document.createElement("img");
-    img.classList.add("obj");
-    img.file = file;
-    addPhoto.appendChild(img); // Où  "preview" correspond à l'élément div où on affiche le contenu.
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
 }
-//const addPhotoDiv = document.getElementById('addPhoto');
-//const input = document.getElementById('images');
 
-//input.addEventListener('change', (e) => {
-//    const files = input.files;
-//    addPhotoDiv.innerHTML = ''; // Effacer le contenu précédent
-
-//    for (let i = 0; i < files.length; i++) {
-//        const file = files[i];
-//        const reader = new FileReader();
-//        reader.onload = (event) => {
-//            const thumbnail = document.createElement('img');
-//            thumbnail.src = event.target.result;
-//            thumbnail.width = 127; // Définir la largeur de la vignette
-//            thumbnail.height = 170; // Définir la hauteur de la vignette
-//            addPhotoDiv.appendChild(thumbnail);
-//        };
-//        reader.readAsDataURL(file);
-//    }
-//});
-
+function Normal () {
+    addPhotoDiv.innerHTML = ''
+    addPhotoDiv.innerHTML = '<div class="icone">' + '<i class="fa-regular fa-image"></i>' + '</div>' + '<label for="images">' + '<button class="epsilon">+ Ajouter photo' + '<input id="images" type="file" required multiple/>' + '<p class="typo">jpg,png : 4mo max</p></button>' + '</label>' + '</div>'
+}
 
