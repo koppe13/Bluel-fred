@@ -479,15 +479,18 @@ li a:hover {
 	text-align: start;
 }
 .addPhoto {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	width: 420px;
 	height: 170px;
 	background-color: #E8F1F6;
 	border-radius: 3px;
-	
+}
+
+.origin {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 170px;
 }
 input[type="file"] {
 	z-index: 1;
@@ -510,12 +513,11 @@ input::file-selector-button {
 	border-radius: 25px;	
 	justify-content: center;
 	text-align: center;
-	margin-bottom: 10px;
 	background: #b5c4cf;
 	border-color: #39595f;
 	border: 1px;
-
-}		
+	color: #39595f;
+}	
 .bouton {
 	width: 173px;
 	height: 36px;
@@ -526,13 +528,21 @@ input::file-selector-button {
 
 aside .fa-image {
 	display: flex;
+	margin-top: 20px;
 	margin-bottom: 10px;
 	padding-right: 0;
 	color:#b5c4cf;
 	font-size: 76px;
 
 }
+.preview {
+	display: flex;
+	justify-content: center;
+}
+
 .typo {
+	position: relative;
+	bottom: 20px;
 	font-size: 10px;
 	text-align: center;
 	color: black;

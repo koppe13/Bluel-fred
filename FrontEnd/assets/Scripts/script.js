@@ -158,7 +158,7 @@ input.addEventListener('change', (e) => {
     const files = input.files;
     //addPhotoDiv.innerHTML = ""; // Effacer le contenu précédent
     document.getElementById("origin").style.display = "none"
-    document.getElementById("preview").style.display = "block"  
+    document.getElementById("preview").style.display = "flex"  
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
@@ -214,9 +214,9 @@ await fetch(`http://localhost:5678/api/works`, {
                 .catch(err => {
                     console.log(err);
                 })
-document.formulaire.reset()
+document.getElementById("formulaire").reset()
 document.getElementById("preview").style.display = "none";
-document.getElementById("origin").style.display = "block";
+document.getElementById("origin").style.display = "flex";
 });
 
 
