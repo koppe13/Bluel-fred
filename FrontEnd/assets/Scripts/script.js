@@ -149,19 +149,16 @@ function returnModale() {
   document.getElementById("filtres").style.display = "none";
   document.getElementById("fenetre").style.display = "flex";
   document.getElementById("ajoutFenetre").style.display = "none";
-  //addPhotoDiv.innerHTML = ''
-  //addPhotoDiv.innerHTML = '<div class="icone">' + '<i class="fa-regular fa-image"></i>' + '</div>' + '<label for="images">' + '<button class="epsilon">+ Ajouter photo' + '<input id="images" type="file" required multiple/>' + '<p class="typo">jpg,png : 4mo max</p></button>' + '</label>' + '</div>'
 }
-function insertDiv () {
-  addPhotoDiv.innerHTML = '<div class="icone">' + '<i class="fa-regular fa-image"></i>' + '</div>' + '<label for="images">' + '<button class="epsilon">+ Ajouter photo' + '<input id="images" type="file" required multiple/>' + '<p class="typo">jpg,png : 4mo max</p></button>' + '</label>' + '</div>'
 
-}
-const addPhotoDiv = document.getElementById('addPhoto');
+
+const addPhotoDiv = document.getElementById('preview');
 const input = document.getElementById('images');
 input.addEventListener('change', (e) => {
     const files = input.files;
-    addPhotoDiv.innerHTML = ""; // Effacer le contenu précédent
-
+    //addPhotoDiv.innerHTML = ""; // Effacer le contenu précédent
+    document.getElementById("origin").style.display = "none"
+    document.getElementById("preview").style.display = "block"  
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
@@ -180,17 +177,19 @@ input.addEventListener('change', (e) => {
 })
 
 
-creer.addEventListener("click", 
-async function creationProjet(e) {
+creer.addEventListener("click", async function creationProjet(e) {
  e.preventDefault();
-  let projetImage = document.querySelector("#addPhoto")
-  console.log(projetImage)
-  let projetTitre = document.getElementById("titre").value
-  let projetCategorie = document.getElementById("categorie").value
-  let formData = new FormData()
-console.log(formData)
+    let projetImage = document.querySelector("#images")
+    console.log(projetImage)
+    let projetTitre = document.getElementById("titre").value
+    let projetCategorie = document.getElementById("categorie").value
+
+    if (!projetImage.files[0] || !projetTitre || !projetCategorie) {
+      alert("Veuillez remplir tous les champs !");
+      return;
+  }
+    let formData = new FormData()
           formData.append("image", projetImage.files[0])
-          console.log(projetImage)
           formData.append("title", projetTitre)
           formData.append("category", projetCategorie)
 
@@ -216,18 +215,11 @@ await fetch(`http://localhost:5678/api/works`, {
                     console.log(err);
                 })
 document.formulaire.reset()
-
+document.getElementById("preview").style.display = "none";
+document.getElementById("origin").style.display = "block";
 });
 
 
 
 
-function Clear () {
-    addPhotoDiv.innerHTML = ''
-}
-
-function Normal () {
-    addPhotoDiv.innerHTML = ''
-    addPhotoDiv.innerHTML = '<div class="icone">' + '<i class="fa-regular fa-image"></i>' + '</div>' + '<label for="images">' + '<button class="epsilon">+ Ajouter photo' + '<input id="images" type="file" required multiple/>' + '<p class="typo">jpg,png : 4mo max</p></button>' + '</label>' + '</div>'
-}
 

@@ -60,17 +60,24 @@
 						<button onClick="closeModale()" class="closeModale2"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				<form name="formulaire" enctype="multipart/form-data" method="post" id="formulaire" class="delta">
-					<div class="gamma"></div>
+						<div class="gamma"></div>
 						<h3 id="titleModale2" class="title">Ajout photo</h3>
 					<div id="addPhoto" class="addPhoto">
-						<div class="icone">
-						<i class="fa-regular fa-image"></i>
+						<div id="origin" class="origin">
+							<div class="icone">	
+								<i class="fa-regular fa-image"></i>
+							</div>
+							<div>
+							<label for="images">
+							<button class="epsilon">+ Ajouter photo
+							<input id="images" type="file" required multiple/>
+							<p class="typo">jpg,png : 4mo max</p></button>
+							</label>
+							</div>
 						</div>
-						<label for="images">
-						<button class="epsilon">+ Ajouter photo
-						<input id="images" type="file" required multiple/>
-						<p class="typo">jpg,png : 4mo max</p></button>
-						</label>
+						<div id="preview" style="display: none;">
+							
+						</div>
 					</div>
 					<div class="formulaire">
 						<label class="deltaLabel" for="name">Titre</label>
