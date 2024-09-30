@@ -156,7 +156,7 @@ const addPhotoDiv = document.getElementById('preview');
 const input = document.getElementById('images');
 input.addEventListener('change', (e) => {
     const files = input.files;
-    //addPhotoDiv.innerHTML = ""; // Effacer le contenu précédent
+    addPhotoDiv.innerHTML = ""; // Effacer le contenu précédent
     document.getElementById("origin").style.display = "none"
     document.getElementById("preview").style.display = "flex"  
     for (let i = 0; i < files.length; i++) {
@@ -168,9 +168,6 @@ input.addEventListener('change', (e) => {
             thumbnail.width = 127; // Définir la largeur de la vignette
             thumbnail.height = 170; // Définir la hauteur de la vignette
             addPhotoDiv.appendChild(thumbnail);
-            console.log(thumbnail)
-            let vignette = thumbnail
-            console.log(vignette)
         };
         reader.readAsDataURL(file);
     }
@@ -215,6 +212,7 @@ await fetch(`http://localhost:5678/api/works`, {
                     console.log(err);
                 })
 document.getElementById("formulaire").reset()
+addPhotoDiv.innerHTML = "";
 document.getElementById("preview").style.display = "none";
 document.getElementById("origin").style.display = "flex";
 });
