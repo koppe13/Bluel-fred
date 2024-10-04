@@ -64,7 +64,7 @@ function affichageMiniature() {
   baliseMiniat.innerHTML = "";
   for (i = 0; i < appear.length; i++) {
     baliseMiniat.innerHTML +=
-      '<div class="' + appear[i].id + '"><img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"><a id="trash" href=""><i class="fa-solid fa-trash-can"></i></a></img></div>'
+      '<div class="' + appear[i].id + '"><a id="trash" href=""><i class="fa-solid fa-trash-can"></i></a><img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"></img></div>'
   }
 
   let trash = document.querySelectorAll('#trash')

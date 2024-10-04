@@ -302,11 +302,7 @@ li a:hover {
 .mention {
 	justify-content: end;
 }
-#portfolio a{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
+
 .modal {
 	position: fixed;
 	align-items: center;
@@ -405,7 +401,7 @@ li a:hover {
 	font-size: 26px;
 }
 #galerie {
-	margin-top: 20px;
+	margin-bottom: 40px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-column-gap: 1px;
@@ -431,8 +427,8 @@ li a:hover {
 }
 #galerie .fa-solid {
 	position: relative;
-	bottom:103px;
-	left: 20px;
+	top:40px;
+	left: 50px;
 	padding-left: 5px;
 	background-color: black;
     color: white;
