@@ -47,7 +47,7 @@
 		<h2>Mes Projets<a id="modale" style="display:none" class="mod" href="#modal1" role="button"><i class="fa-regular fa-pen-to-square"></i>modifier</a></h2>
 		<aside Id="modal1" class="modal" role="dialog" aria-labelledby="titleModale" style="display:none">
 			<div id="fenetre" class="modal-wrapper">
-				<button onClick="closeModale()" class="closeModale"><i class="fa-solid fa-xmark"></i></button>
+				<button id=closeButton class="closeModale"><i class="fa-solid fa-xmark"></i></button>
 				<h3 id="titleModale" class="title">Galerie Photo</h3>
 				<div id="galerie" class="alpha"></div>
 				<div class="beta"></div>
@@ -56,8 +56,8 @@
 		
 			<div id="ajoutFenetre" class="modal-wrapper2" style="display:none">
 					<div class="alignement">
-						<button onClick="returnModale()" class="returnModale"><i class="fa-solid fa-arrow-left"></i></button>
-						<button onClick="closeModale()" class="closeModale2"><i class="fa-solid fa-xmark"></i></button>
+						<button id=returnButton class="returnModale"><i class="fa-solid fa-arrow-left"></i></button>
+						<button id=closeButton class="closeModale2"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				<form name="formulaire" enctype="multipart/form-data" method="post" id="formulaire" class="delta">
 						<div class="gamma"></div>

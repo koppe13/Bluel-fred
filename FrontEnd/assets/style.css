@@ -382,8 +382,9 @@ li a:hover {
 	margin-left: 105px;
 	margin-top: 0;
 }
-.creer:focus {
+.creer.active {
 	background-color: #1D6154;
+	cursor: pointer;
 }
 .fa-solid {
 	color:black;

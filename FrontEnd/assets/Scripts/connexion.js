@@ -2,22 +2,6 @@ const connex = document.getElementById("login")
 const decon = document.getElementById("logout")
 const section = document.getElementById("connexion")
 
-//recupére les valeurs inscritent par utilisateurs (mail et mdp)
-
-section.addEventListener("change", () => {
-  
-  // On fait la vérification.
-  const utilMail = document.getElementById("email").value;
-  const utilPass = document.getElementById("password").value
-  console.log(utilMail)
-  console.log(utilPass)
-  if ( utilMail && utilPass ) {
-    connex.disabled = false
-  }else {
-    connex.disabled = true
-  }
-})
-
     connex.addEventListener("click", (event) => {
     event.preventDefault()
   
@@ -25,6 +9,7 @@ section.addEventListener("change", () => {
 
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
+      
   //envoi du mail et du password sur l'api
   // Appel de la fonction fetch avec toutes les informations nécessaires
       try {
@@ -45,7 +30,7 @@ section.addEventListener("change", () => {
             
 
       }else{
-        throw new Error("le mail ou le mot de passe est érroné")
+        throw new Error()
       }
      
     } catch (erreur) {
@@ -54,7 +39,6 @@ section.addEventListener("change", () => {
       
     }
     function afficherMessageErreur () {
-    let erreurTexte = document.getElementById("connexion")
         let spanError = document.createElement("span")
         console.log(document.querySelector("#connexion > span"))
     if (!document.querySelector("#connexion > span")){   
@@ -66,6 +50,20 @@ section.addEventListener("change", () => {
   
 postJSON ()
 
+})
+
+section.addEventListener("change", () => {
+  
+  // On fait la vérification.
+  const utilMail = document.getElementById("email").value;
+  const utilPass = document.getElementById("password").value
+  console.log(utilMail)
+  console.log(utilPass)
+  if ( utilMail && utilPass ) {
+    connex.disabled = false
+  }else {
+    connex.disabled = true
+  }
 })
 //let regex = new RegExp("^[a-z]+$");
   //let resultat = regex.test(chaine);

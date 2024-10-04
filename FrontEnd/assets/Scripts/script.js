@@ -127,7 +127,10 @@ modal1.addEventListener("click", function (event) {
     closeModale();
   }
 });
+const returnButton = document.getElementById("returnButton");
+const closeButton = document.getElementById("closeButton");
 
+closeButton.addEventListener("click", closeModale);
 function closeModale() {
   document.getElementById("fenetre").style.display = "none";
   document.getElementById("modal1").style.display = "none";
@@ -143,7 +146,7 @@ function ajout() {
   document.getElementById("ajoutFenetre").style.display = "flex";
   
 }
-
+returnButton.addEventListener("click", returnModale)
 function returnModale() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
@@ -172,7 +175,31 @@ input.addEventListener('change', (e) => {
         reader.readAsDataURL(file);
     }
 })
+const creerButton = document.getElementById("creer");
+const imageInput = document.getElementById("images");
+const titreInput = document.getElementById("titre");
+const categorieInput = document.getElementById("categorie");
 
+function complet() {
+  tempImage = imageInput.files.length > 0;
+  tempTitre = titreInput.value.trim() !== "";
+  tempCategorie = categorieInput.value.trim() !== "";
+
+  if (tempImage && tempTitre && tempCategorie) {
+    creerButton.classList.add("active"); // Active le style vert
+    creerButton.disabled = false; // Active le bouton
+  } else {
+    creerButton.classList.remove("active"); // Retourne au style gris
+    creerButton.disabled = true; // Désactive le bouton
+  }
+}
+// Ajoutez des écouteurs d'événements pour surveiller les changements dans les champs
+imageInput.addEventListener("change", complet);
+titreInput.addEventListener("input", complet);
+categorieInput.addEventListener("change", complet);
+
+// Désactive le bouton au chargement initial
+creerButton.disabled = true;
 
 creer.addEventListener("click", async function creationProjet(e) {
  e.preventDefault();
@@ -184,8 +211,10 @@ creer.addEventListener("click", async function creationProjet(e) {
     if (!projetImage.files[0] || !projetTitre || !projetCategorie) {
       alert("Veuillez remplir tous les champs !");
       return;
-  }
-    let formData = new FormData()
+    }
+    
+   
+  let formData = new FormData()
           formData.append("image", projetImage.files[0])
           formData.append("title", projetTitre)
           formData.append("category", projetCategorie)
@@ -215,6 +244,7 @@ document.getElementById("formulaire").reset()
 addPhotoDiv.innerHTML = "";
 document.getElementById("preview").style.display = "none";
 document.getElementById("origin").style.display = "flex";
+creerButton.disabled = true;
 });
 
 
