@@ -128,9 +128,12 @@ modal1.addEventListener("click", function (event) {
   }
 });
 const returnButton = document.getElementById("returnButton");
-const closeButton = document.getElementById("closeButton");
+const closeButton = document.querySelectorAll('#closeButton');
 
-closeButton.addEventListener("click", closeModale);
+closeButton.forEach(button => {
+  button.addEventListener("click", closeModale);
+});
+
 function closeModale() {
   document.getElementById("fenetre").style.display = "none";
   document.getElementById("modal1").style.display = "none";
@@ -187,10 +190,10 @@ function complet() {
 
   if (tempImage && tempTitre && tempCategorie) {
     creerButton.classList.add("active"); // Active le style vert
-    creerButton.disabled = false; // Active le bouton
+    //creerButton.disabled = false; // Active le bouton
   } else {
     creerButton.classList.remove("active"); // Retourne au style gris
-    creerButton.disabled = true; // Désactive le bouton
+    //creerButton.disabled = true; // Désactive le bouton
   }
 }
 // Ajoutez des écouteurs d'événements pour surveiller les changements dans les champs
@@ -199,7 +202,7 @@ titreInput.addEventListener("input", complet);
 categorieInput.addEventListener("change", complet);
 
 // Désactive le bouton au chargement initial
-creerButton.disabled = true;
+//creerButton.disabled = true;
 
 creer.addEventListener("click", async function creationProjet(e) {
  e.preventDefault();
@@ -244,7 +247,7 @@ document.getElementById("formulaire").reset()
 addPhotoDiv.innerHTML = "";
 document.getElementById("preview").style.display = "none";
 document.getElementById("origin").style.display = "flex";
-creerButton.disabled = true;
+//creerButton.disabled = true;
 });
 
 
