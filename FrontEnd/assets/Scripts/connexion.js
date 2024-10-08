@@ -40,7 +40,7 @@ const section = document.getElementById("connexion")
     }
     function afficherMessageErreur () {
         let spanError = document.createElement("span")
-        console.log(document.querySelector("#connexion > span"))
+        
     if (!document.querySelector("#connexion > span")){   
         spanError.innerText = "le mail ou le mot de passe est érroné(s)"
         connexion.append(spanError)

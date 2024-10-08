@@ -14,15 +14,16 @@ async function goJson() {
 
   const filtreBefore = [...new Set(works.map((work) => work.category.name + '-' + work.category.id))];
   const filtreByName = filtreBefore.map(element => element.split('-'))
-  console.log(filtreByName)
+  
+  filtreButton.innerHTML +=
+  "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
   //creation des boutons filtres avec generation du name grace au set
    for (i = 0; i < filtreByName.length; i++) {
     filtreButton.innerHTML += "<button class='filt' onclick=\"filtre('" + filtreByName[i][0] + "')\">" + filtreByName[i][0] + "</button>";
     baliseCategorie.innerHTML += "<option value='"+ filtreByName[i][1] +"'>" + filtreByName[i][0] + "</option>"
  
   }
-  filtreButton.innerHTML +=
-  "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
+ 
   //demarrage du site par filtre tous
   filtre("tous");
   connected();
@@ -33,7 +34,7 @@ function filtre(valButton) {
   //filtre des données json par click sur button correspondant
   if (valButton !== "tous") {
     const btnFiltre = donneesJson.filter((donnees) => {
-      return donnees.category.name == valButton;
+      return donnees.category.name === valButton;
     });
     //données filtrées par button
     affichageFiltre(btnFiltre);
@@ -45,26 +46,37 @@ function filtre(valButton) {
 
 //creation de l'affichage par boucle et valeur
 function affichageFiltre(afficher) {
-  console.log(afficher)
+  
   baliseMur.innerHTML = "";
   for (i = 0; i < afficher.length; i++) {
-    baliseMur.innerHTML += '<figure class="' 
-    + afficher[i].id +
-     '" id="' 
+    baliseMur.innerHTML += 
+    '<figure class="' 
      + afficher[i].id +
-      '"><img src="' 
-      + afficher[i].imageUrl + '"alt="' + afficher[i].title + '"></img><figcaption>' +
-      afficher[i].title + "</figcaption></figure>"
+      '" id="' 
+       + afficher[i].id +
+        '"><img src="' 
+         + afficher[i].imageUrl +
+          '"alt="'
+           + afficher[i].title +
+            '"></img><figcaption>' 
+             + afficher[i].title +
+              "</figcaption></figure>"
   }
 }
 
 function affichageMiniature() {
   let appear = donneesJson;
-  console.log(appear)
+  
   baliseMiniat.innerHTML = "";
   for (i = 0; i < appear.length; i++) {
     baliseMiniat.innerHTML +=
-      '<div class="' + appear[i].id + '"><a id="trash" href=""><i class="fa-solid fa-trash-can"></i></a><img src="' + appear[i].imageUrl + '"alt="' + appear[i].title + '"></img></div>'
+      '<div class="'
+       + appear[i].id +
+        '"><a id="trash" href=""><i class="fa-solid fa-trash-can"></i></a><img src="'
+         + appear[i].imageUrl +
+          '"alt="'
+           + appear[i].title +
+            '"></img></div>'
   }
 
   let trash = document.querySelectorAll('#trash')
@@ -72,14 +84,14 @@ function affichageMiniature() {
    icon.addEventListener('click', function(e) {
     e.preventDefault();
     let id = e.target.parentElement.parentElement.className; // faire plus propre!!!
-    console.log(id)
+   
     let index = donneesJson.findIndex(e => e.id.toString() === id.toString())
 
 fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
              headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} })
         .then(() => {
           donneesJson.splice(index, 1);
-          console.log(index);
+          
         affichageFiltre(donneesJson);
         affichageMiniature();  
    })
@@ -91,7 +103,7 @@ fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
 
 function connected() {
   let userConnected = localStorage.getItem("token");
-  console.log(userConnected);
+  
   if (userConnected !== null) {
     document.getElementById("con").style.display = "none";
     document.getElementById("decon").style.display = "inline";
@@ -190,10 +202,10 @@ function complet() {
 
   if (tempImage && tempTitre && tempCategorie) {
     creerButton.classList.add("active"); // Active le style vert
-    //creerButton.disabled = false; // Active le bouton
+    
   } else {
     creerButton.classList.remove("active"); // Retourne au style gris
-    //creerButton.disabled = true; // Désactive le bouton
+    
   }
 }
 // Ajoutez des écouteurs d'événements pour surveiller les changements dans les champs
@@ -201,13 +213,11 @@ imageInput.addEventListener("change", complet);
 titreInput.addEventListener("input", complet);
 categorieInput.addEventListener("change", complet);
 
-// Désactive le bouton au chargement initial
-//creerButton.disabled = true;
 
 creer.addEventListener("click", async function creationProjet(e) {
  e.preventDefault();
     let projetImage = document.querySelector("#images")
-    console.log(projetImage)
+    
     let projetTitre = document.getElementById("titre").value
     let projetCategorie = document.getElementById("categorie").value
 
@@ -233,21 +243,21 @@ await fetch(`http://localhost:5678/api/works`, {
            })
            .then(res => res.json())
                 .then(res => {
-                    console.log(res);
+                   
            donneesJson.push(res);
-           console.log(donneesJson)
+           
            affichageFiltre(donneesJson)
            affichageMiniature()
            returnModale()
                 })
                 .catch(err => {
-                    console.log(err);
+                    
                 })
 document.getElementById("formulaire").reset()
 addPhotoDiv.innerHTML = "";
 document.getElementById("preview").style.display = "none";
 document.getElementById("origin").style.display = "flex";
-//creerButton.disabled = true;
+
 });
 
 
