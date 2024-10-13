@@ -11,15 +11,18 @@ async function goJson() {
   const responses = await fetch("http://localhost:5678/api/works");
   const works = await responses.json();
   donneesJson = works;
-
+//recupération de la categorie et de l'id par set (dedoublonner) et map recreer un tableau pour les valeurs
   const filtreBefore = [...new Set(works.map((work) => work.category.name + '-' + work.category.id))];
+
   const filtreByName = filtreBefore.map(element => element.split('-'))
   
   filtreButton.innerHTML +=
   "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
-  //creation des boutons filtres avec generation du name grace au set
+  //creation des boutons filtres avec generation du name grace au set et map
    for (i = 0; i < filtreByName.length; i++) {
+    //creation des filtres dynamiques en recuperant juste le nom de l'emplacement 0 
     filtreButton.innerHTML += "<button class='filt' onclick=\"filtre('" + filtreByName[i][0] + "')\">" + filtreByName[i][0] + "</button>";
+    //creation des catégories du formulaire de crea de la modale recup de l'id [1] et le nom du tableau [0]
     baliseCategorie.innerHTML += "<option value='"+ filtreByName[i][1] +"'>" + filtreByName[i][0] + "</option>"
  
   }
@@ -63,7 +66,7 @@ function affichageFiltre(afficher) {
               "</figcaption></figure>"
   }
 }
-
+//creation des miniatures avec les trashs
 function affichageMiniature() {
   let appear = donneesJson;
   
@@ -78,20 +81,23 @@ function affichageMiniature() {
            + appear[i].title +
             '"></img></div>'
   }
-
+//systeme de suppression par id
   let trash = document.querySelectorAll('#trash')
   trash.forEach(icon => {
    icon.addEventListener('click', function(e) {
     e.preventDefault();
-    let id = e.target.parentElement.parentElement.className; // faire plus propre!!!
-   
+    //recupération de l'id du projet
+    let id = e.target.parentElement.parentElement.className;
+    //verification de l'existance de l'ID
     let index = donneesJson.findIndex(e => e.id.toString() === id.toString())
-
+//suppression du projet
 fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
              headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} })
+          //suppression effectuée   
         .then(() => {
+          //Affichage reactif de la suppression
           donneesJson.splice(index, 1);
-          
+          //reaffichage des images du projet mise a jour
         affichageFiltre(donneesJson);
         affichageMiniature();  
    })
@@ -99,8 +105,6 @@ fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
   })
 
 }
- 
-
 function connected() {
   let userConnected = localStorage.getItem("token");
   
@@ -114,6 +118,7 @@ function connected() {
 }
 
 decon.addEventListener("click", deconnexion);
+
 function deconnexion() {
   if (document.getElementById("decon").style.display == "inline") {
     document.getElementById("con").style.display = "inline";
@@ -124,6 +129,7 @@ function deconnexion() {
 }
 
 modale.addEventListener("click", modified);
+
 function modified() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
@@ -153,7 +159,9 @@ function closeModale() {
 }
 
 let addProject = document.getElementById('nextModale')
+
 addProject.addEventListener("click", ajout);
+
 function ajout() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
@@ -162,6 +170,7 @@ function ajout() {
   
 }
 returnButton.addEventListener("click", returnModale)
+
 function returnModale() {
   document.getElementById("modal1").style.display = "flex";
   document.getElementById("filtres").style.display = "none";
@@ -221,12 +230,13 @@ creer.addEventListener("click", async function creationProjet(e) {
     let projetTitre = document.getElementById("titre").value
     let projetCategorie = document.getElementById("categorie").value
 
+    //verification que tous les champs soient remplis
     if (!projetImage.files[0] || !projetTitre || !projetCategorie) {
       alert("Veuillez remplir tous les champs !");
       return;
     }
     
-   
+   //creation du projet en formdata 
   let formData = new FormData()
           formData.append("image", projetImage.files[0])
           formData.append("title", projetTitre)
