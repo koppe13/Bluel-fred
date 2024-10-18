@@ -45,6 +45,7 @@ const section = document.getElementById("connexion")
         spanError.innerText = "le mail ou le mot de passe est érroné(s)"
         connexion.append(spanError)
     }
+        
         document.getElementById("login").disabled = true
   }
   

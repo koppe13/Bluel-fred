@@ -13,9 +13,10 @@ async function goJson() {
   donneesJson = works;
 //recupération de la categorie et de l'id par set (dedoublonner) et map recreer un tableau pour les valeurs
   const filtreBefore = [...new Set(works.map((work) => work.category.name + '-' + work.category.id))];
-
+  //console.log(filtreBefore)
+  //recuperation du tableau et séparation de l'id et du nom par le split
   const filtreByName = filtreBefore.map(element => element.split('-'))
-  
+  //console.log(filtreByName)
   filtreButton.innerHTML +=
   "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
   //creation des boutons filtres avec generation du name grace au set et map
@@ -29,6 +30,7 @@ async function goJson() {
  
   //demarrage du site par filtre tous
   filtre("tous");
+  //lancement de la fn connexion
   connected();
 }
 
@@ -97,6 +99,7 @@ fetch(`http://localhost:5678/api/works/${id}`, { method: 'DELETE',
         .then(() => {
           //Affichage reactif de la suppression
           donneesJson.splice(index, 1);
+          //console.log(donneesJson)
           //reaffichage des images du projet mise a jour
         affichageFiltre(donneesJson);
         affichageMiniature();  
@@ -169,6 +172,8 @@ function ajout() {
   document.getElementById("ajoutFenetre").style.display = "flex";
   
 }
+
+
 returnButton.addEventListener("click", returnModale)
 
 function returnModale() {
@@ -181,14 +186,18 @@ function returnModale() {
 
 const addPhotoDiv = document.getElementById('preview');
 const input = document.getElementById('images');
+
+
 input.addEventListener('change', (e) => {
     const files = input.files;
     addPhotoDiv.innerHTML = ""; // Effacer le contenu précédent
     document.getElementById("origin").style.display = "none"
     document.getElementById("preview").style.display = "flex"  
+
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
+
         reader.onload = (event) => {
             const thumbnail = document.createElement('img');
             thumbnail.src = event.target.result;
@@ -226,7 +235,6 @@ categorieInput.addEventListener("change", complet);
 creer.addEventListener("click", async function creationProjet(e) {
  e.preventDefault();
     let projetImage = document.querySelector("#images")
-    
     let projetTitre = document.getElementById("titre").value
     let projetCategorie = document.getElementById("categorie").value
 
@@ -251,11 +259,13 @@ await fetch(`http://localhost:5678/api/works`, {
             },
   
            })
+           //res est la reponse du formdata en json
            .then(res => res.json())
+           //integration de la ligne dans donnéesjson
                 .then(res => {
                    
            donneesJson.push(res);
-           
+           //pour faire apparaitre l'integration de la modif du fichier JSon
            affichageFiltre(donneesJson)
            affichageMiniature()
            returnModale()
