@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", goJson);
 async function goJson() {
   const catResponses = await fetch("http://localhost:5678/api/categories");
   const catWorks = await catResponses.json();
-  console.log(catWorks)
+  
   const responses = await fetch("http://localhost:5678/api/works");
   const works = await responses.json();
   donneesJson = works;
