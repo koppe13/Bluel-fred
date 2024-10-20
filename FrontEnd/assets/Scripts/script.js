@@ -14,21 +14,15 @@ async function goJson() {
   const responses = await fetch("http://localhost:5678/api/works");
   const works = await responses.json();
   donneesJson = works;
-//recupération de la categorie et de l'id par set (dedoublonner) et map recreer un tableau pour les valeurs
-  //const filtreBefore = [...new Set(works.map((work) => work.category.name + '-' + work.category.id))];
-  //console.log(filtreBefore)
-  //recuperation du tableau et séparation de l'id et du nom par le split
-  //const filtreByName = filtreBefore.map(element => element.split('-'))
-  //console.log(filtreByName)
+
+  
   filtreButton.innerHTML +=
   "<button class='filt' onclick=\"filtre('tous')\">Tous</button>";
-  //creation des boutons filtres avec generation du name grace au set et map
-   //for (i = 0; i < filtreByName.length; i++) {
+  
     for (i = 0; i < catWorks.length; i++) {
-    //creation des filtres dynamiques en recuperant juste le nom de l'emplacement 0 
-    //filtreButton.innerHTML += "<button class='filt' onclick=\"filtre('" + filtreByName[i][0] + "')\">" + filtreByName[i][0] + "</button>";
+    
     filtreButton.innerHTML += "<button class='filt' onclick=\"filtre('" + catWorks[i].name + "')\">" + catWorks[i].name + "</button>";
-    //creation des catégories du formulaire de crea de la modale recup de l'id [1] et le nom du tableau [0]
+   
     baliseCategorie.innerHTML += "<option value='"+ catWorks[i].id +"'>" + catWorks[i].name + "</option>"
  
   }
